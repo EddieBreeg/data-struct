@@ -40,24 +40,29 @@ class Struct:
         for x in self.data:
             n+=1
         return n
-    def sorted(self, path=None):
+    def sorted(self, path=None, function=None):
         if type(self.data)==list:
             if path==None:
                 return Struct(sorted(self.data))
-            else:
+            elif function==None:
                 return Struct(sorted(self.data, key=lambda x:Struct(x)[path]))
+            else:
+                return Struct(sorted(self.data, key=lambda x: function.__call__(Struct(x)[path])))
         else:
             result = Struct({})
             if path==None:
                 for e in sorted(self):
                     result[e[0]]=e[1]
-            else:
+            elif function==None:
                 for e in sorted(self, key=lambda x: Struct(x[1])[path]):
                     result[e[0]] = e[1]
+            else:
+                for e in sorted(self, key=lambda x: function.__call__(Struct(x[1])[path])):
+                    result[e[0]] = e[1]
             return result
-    def sort(self, path=None):
-        self=self.sort(path)
 
+    def sort(self, path=None, function=None):
+        self.data=self.sorted(path, function).data
     def isValueIn(self, value):
         return isValueIn(self.data, value)
     def pathToValue(self, value):
