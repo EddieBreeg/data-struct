@@ -1,66 +1,106 @@
-def modifyStruct(struct, path):
-    if len(path)==2:
-        struct[path[0]]=path[1]
-        if path[1]==None:
-            del struct[path[0]]
-        return struct
-    struct.setdefault(path[0], {})
-    struct[path[0]]= modifyStruct(struct[path[0]], path[1:])
-    if struct[path[0]]=={}:
-        del struct[path[0]]
-    return struct
+import copy
+import json
 
-def isValueIn(struct, value):
-    if struct==value:
+class Struct:
+    def __init__(self, data):
+        self.data=data
+    def dumps(self, indent=None):
+        return json.dumps(self.data, indent=indent)
+    @staticmethod
+    def loads(string):
+        return Struct(json.loads(string))
+    def dump(self, file, indent=None):
+        json.dump(self, file,indent=indent)
+    @staticmethod
+    def load(file):
+        return  Struct(json.load(file))
+    def __repr__(self):
+        return self.dumps(indent=4)
+    def __setitem__(self, path, value):
+        modifyStruct(self.data, list(path)+[value])
+    def __delitem__(self, path):
+        self[path]=None
+    def __contains__(self, item):
+        return isValueIn(self.data, item)
+    def __getitem__(self, path):
+        return getItem(self.data, list(path))
+
+def getItem(data, path):
+    if path==[]:
+        return data
+    return getItem(data[path[0]], path[1:])
+
+
+def modifyStruct(data, path):
+    if len(path) == 2:
+        data[path[0]] = path[1]
+        if path[1] == None:
+            del data[path[0]]
+        return data
+    if type(data)==dict:
+        data.setdefault(path[0], {})
+    data[path[0]] = modifyStruct(data[path[0]], path[1:])
+    if data[path[0]] == {}:
+        del data[path[0]]
+    return data
+
+
+def isValueIn(data, value):
+    if data == value:
         return True
 
-    elif type(struct)==list:
-        for x in struct:
+    elif type(data) == list:
+        for x in data:
             if isValueIn(x, value):
                 return True
         return False
-    elif type(struct)==dict:
-        for k in struct:
-            if isValueIn(struct[k], value):
+    elif type(data) == dict:
+        for k in data:
+            if isValueIn(data[k], value):
                 return True
     return False
 
-def pathToValue(struct, value):
-    if struct==value:
+
+def pathToValue(data, value):
+    if data == value:
         return [value]
 
-    if type(struct)==dict:
-        sequence=struct.keys()
+    if type(data) == dict:
+        sequence = data.keys()
     else:
-        sequence=range(len(struct))
+        sequence = range(len(data))
 
     for k in sequence:
-        if isValueIn((sub := struct[k]), value):
+        if isValueIn((sub := data[k]), value):
             return [k] + pathToValue(sub, value)
 
-def isKeyIn(struct, key):
-    sequence=[]
-    if type(struct)==list:
-        sequence=range(len(struct))
-    elif type(struct)==dict:
-        sequence=struct.keys()
+
+def isKeyIn(data, key):
+    sequence = []
+    if type(data) == list:
+        sequence = range(len(data))
+    elif type(data) == dict:
+        sequence = data.keys()
     for k in sequence:
-        if k==key:
+        if k == key:
             return True
-        elif isKeyIn(struct[k], key):
+        elif isKeyIn(data[k], key):
             return True
     return False
 
-def getAll(struct, key):
+def getAll(data, key):
     sequence = []
-    if type(struct) == list:
-        sequence = range(len(struct))
-    elif type(struct) == dict:
-        sequence = struct.keys()
-    values=[]
+    if type(data) == list:
+        sequence = range(len(data))
+    elif type(data) == dict:
+        sequence = data.keys()
+    values = []
     for k in sequence:
-        if k==key:
-            values.append(struct[k])
+        if k == key:
+            values.append(data[k])
         else:
-            values+=getAll(struct[k], key)
+            values += getAll(data[k], key)
     return values
+
+
+# def deleteValue(struct, value)
