@@ -26,6 +26,11 @@ class Struct:
         return getItem(self.data, list(path))
     def __iter__(self):
         return self.data.__iter__()
+    def __len__(self):
+        n=0
+        for x in self.data:
+            n+=1
+        return n
     def isValueIn(self, value):
         return isValueIn(self.data, value)
     def pathToValue(self, value):
