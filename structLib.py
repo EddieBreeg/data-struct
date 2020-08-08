@@ -17,20 +17,47 @@ class Struct:
     def __repr__(self):
         return self.dumps(indent=4)
     def __setitem__(self, path, value):
+        if type(path)==str:
+            path=[path]
         modifyStruct(self.data, list(path)+[value])
     def __delitem__(self, path):
         self[path]=None
     def __contains__(self, key):
         return isKeyIn(self.data, key)
     def __getitem__(self, path):
+        if type(path)==str:
+            path=[path]
         return getItem(self.data, list(path))
     def __iter__(self):
-        return self.data.__iter__()
+        if type(self.data)==dict:
+            return [(k, self.data[k]) for k in self.data].__iter__()
+        elif type(self.data)==list:
+            return self.data.__iter__()
+        else:
+            return [self.data].__iter__()
     def __len__(self):
         n=0
         for x in self.data:
             n+=1
         return n
+    def sorted(self, path=None):
+        if type(self.data)==list:
+            if path==None:
+                return Struct(sorted(self.data))
+            else:
+                return Struct(sorted(self.data, key=lambda x:Struct(x)[path]))
+        else:
+            result = Struct({})
+            if path==None:
+                for e in sorted(self):
+                    result[e[0]]=e[1]
+            else:
+                for e in sorted(self, key=lambda x: Struct(x[1])[path]):
+                    result[e[0]] = e[1]
+            return result
+    def sort(self, path=None):
+        self=self.sort(path)
+
     def isValueIn(self, value):
         return isValueIn(self.data, value)
     def pathToValue(self, value):
@@ -49,6 +76,7 @@ class Struct:
             del path[-1]
             result[path] = new
         return result
+
 
 def getItem(data, path):
     if path==[]:
@@ -109,6 +137,7 @@ def isKeyIn(data, key):
         elif isKeyIn(data[k], key):
             return True
     return False
+
 
 def getAll(data, key):
     sequence = []
