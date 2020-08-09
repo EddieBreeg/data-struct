@@ -10,7 +10,10 @@ class Struct:
 
         :param data: dict or list object
         """
-        self.data = data
+        if type(data) != dict and type(data) != list:
+            raise TypeError("Argument should be a dict or a list, not a {0}".format(str(type(data))))
+        else:
+            self.data = data
 
     def dumps(self, indent=None):
         """Serialize self.data to json formatted str"""
@@ -23,7 +26,7 @@ class Struct:
 
     def dump(self, file, indent=None):
         """Serialize self.data to JSON formatted str, and writes it into file"""
-        json.dump(self, file, indent=indent)
+        json.dump(self.data, file, indent=indent)
 
     @staticmethod
     def load(file):
