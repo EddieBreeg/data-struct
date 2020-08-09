@@ -24,7 +24,7 @@ There is indeed a bunch of other functions defined. The only reason these functi
 they work using recursive algorithms, therefore it was way easier to implement them outside and then simply call them from 
 the class methods when needed. Note that you **should not** be using those functions, the _Struct_ class handles all of that for you.
 
-Now let's look at some code shall we?
+Now let's look at some code shall we? The following code can be found in the examples folder.
 ```python
 # This code aims to illustrate how we can use structLib
 from structLib import Struct
@@ -79,3 +79,11 @@ print(data)
 with open("sorted_actors.json", 'w') as f_out:
     data.dump(f_out, indent=4)
 ```
+
+## Requirements
+
+None! That's also what is cool about it! 🙂
+
+## Authors
+
+[EddieBreeg](https://github.com/EddieBreeg)
