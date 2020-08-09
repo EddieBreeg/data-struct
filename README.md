@@ -22,7 +22,7 @@ Let's have closer look at what we can do with this library and how...
 If you take a look at the code or the help module you will notice that the _Struct_ class isn't the only element in there.
 There is indeed a bunch of other functions defined. The only reason these functions are not part of the class is because 
 they work using recursive algorithms, therefore it was way easier to implement them outside and then simply call them from 
-the class methods when needed. Note that you *should not* be using those functions, the _Struct_ class handles all of that for you.
+the class methods when needed. Note that you **should not** be using those functions, the _Struct_ class handles all of that for you.
 
 Now let's look at some code shall we?
 ```python
