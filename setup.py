@@ -20,4 +20,10 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.8',
+    install_requires=[
+        # eg: "aspectlib==1.1.1", "six>=1.7",
+    ],
+    extras_require={
+        # 'dev': ["pytest"],
+    },
 )
