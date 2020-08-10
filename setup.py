@@ -7,6 +7,7 @@ setuptools.setup(
     name="structLib-EddieBreeg",
     version="0.2.0",
     author="Eddie Breeg",
+    license="GPLv3",
     author_email="eddiebreeg0@protonmail.com",
     description="A class to help you handling complex JSON-like objects",
     long_description=long_description,

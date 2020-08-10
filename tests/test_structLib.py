@@ -24,12 +24,21 @@ def test_get_item():
 
 def test_set_item():
     data["bruh"] = {"id": 69}
-    assert data['bruh'] == {"id": 69}
+    assert data['bruh', 'id'] == 69
 
 
 def test_del_item():
     del data['bruh']
     assert ('bruh' not in data)
+
+
+def test_getAll():
+    assert data.getAll("id") == [0, 47, 4]
+
+
+def test_sort():
+    data.sort(path="id")
+    assert data.getAll("id") == [0, 4, 47]
 
 
 def test_replace():
@@ -41,13 +50,6 @@ def test_replace2():
     assert data.replace('blabla', 'blabla2')["2", "key"] == "blabla2"
 
 
-def test_getAll():
-    assert data.getAll("id") == [0, 47, 4]
-
-
-def test_sort():
-    data.sort(path="id")
-    assert data.getAll("id") == [0, 4, 47]
 
 
 def test_len():
@@ -67,11 +69,13 @@ data2 = Struct(
     ]
 )
 
+
 def test_sort2():
     assert [x['id'] for x in data2.sorted('id', int)] == ['0', 1, 2]
+
 
 def test_sort3():
     data.sort(function=int)
     assert [x[0] for x in data] == ["1", '2', '3']
 
-test_sort3()
+
