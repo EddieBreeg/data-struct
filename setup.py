@@ -4,8 +4,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="structLib-EddieBreeg",
-    version="0.2.2",
+    name="data-struct",
+    version="1.0.0",
     author="Eddie Breeg",
     license="GPLv3",
     author_email="eddiebreeg0@protonmail.com",
