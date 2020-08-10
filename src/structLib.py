@@ -71,31 +71,27 @@ class Struct:
             n += 1
         return n
 
-    def sorted(self, path=None, function=None):
-        """Returns the sorted Struct version of self.
-        path: the path to the value which is looked at for the sort
-        function: the function applied on said value (only works if path!=None)"""
+    def sorted(self, path=None, function=lambda x: x):
+        """Returns the sorted Struct version of self. path: the path to the value which is looked at for the sort. If
+        left as None and self.data is a dict object, the sort will look at the keys.
+        function: the function applied on said value
+        """
         if type(self.data) == list:
             if path is None:
-                return Struct(sorted(self.data))
-            elif function is None:
-                return Struct(sorted(self.data, key=lambda x: Struct(x)[path]))
+                return Struct(sorted(self.data, key=function))
             else:
-                return Struct(sorted(self.data, key=lambda x: function.__call__(Struct(x)[path])))
+                return Struct(sorted(self.data, key=lambda x: function(Struct(x)[path])))
         else:
             result = Struct({})
             if path is None:
-                for e in sorted(self):
-                    result[e[0]] = e[1]
-            elif function is None:
-                for e in sorted(self, key=lambda x: Struct(x[1])[path]):
+                for e in sorted(self, key=lambda x: function(x[0])):
                     result[e[0]] = e[1]
             else:
-                for e in sorted(self, key=lambda x: function.__call__(Struct(x[1])[path])):
+                for e in sorted(self, key=lambda x: function(Struct(x[1])[path])):
                     result[e[0]] = e[1]
             return result
 
-    def sort(self, path=None, function=None):
+    def sort(self, path=None, function=lambda x: x):
         """Sorts self.
         path: the path to the value which is looked at for the sort
         function: the function applied on said value (only works if path!=None)"""

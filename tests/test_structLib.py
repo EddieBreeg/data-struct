@@ -2,15 +2,15 @@ from structLib import Struct
 
 data = Struct(
     {
-        "element1": {
+        "2": {
             "id": 0,
             "key": "blabla"
         },
-        "element2": {
+        "1": {
             "id": 47,
             "key": "foo"
         },
-        "element3": {
+        "3": {
             "id": 4,
             "key": "Hello world"
         }
@@ -19,7 +19,7 @@ data = Struct(
 
 
 def test_get_item():
-    assert data['element1', "id"] == 0
+    assert data['2', "id"] == 0
 
 
 def test_set_item():
@@ -38,7 +38,7 @@ def test_replace():
 
 
 def test_replace2():
-    assert data.replace('blabla', 'blabla2')["element1", "key"] == "blabla2"
+    assert data.replace('blabla', 'blabla2')["2", "key"] == "blabla2"
 
 
 def test_getAll():
@@ -67,6 +67,11 @@ data2 = Struct(
     ]
 )
 
-
 def test_sort2():
     assert [x['id'] for x in data2.sorted('id', int)] == ['0', 1, 2]
+
+def test_sort3():
+    data.sort(function=int)
+    assert [x[0] for x in data] == ["1", '2', '3']
+
+test_sort3()
