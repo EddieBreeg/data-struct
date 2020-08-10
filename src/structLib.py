@@ -143,7 +143,7 @@ def modifyStruct(data: 'JSON style object', path):
     if type(data) == dict:
         data.setdefault(path[0], {})
     data[path[0]] = modifyStruct(data[path[0]], path[1:])
-    if data[path[0]] == {}:
+    if not data[path[0]]:
         del data[path[0]]
     return data
 

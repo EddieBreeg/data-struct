@@ -1,5 +1,9 @@
 # Changelog
 
+#### 1.0.1
+
+Changed a bug such that when a list in the Struct object became empty, it was not deleted as it should
+
 ## 1.0.0
 
 Project renamed to **data-struct**
