@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="structLib-EddieBreeg",
-    version="0.2.0",
+    version="0.2.1",
     author="Eddie Breeg",
     license="GPLv3",
     author_email="eddiebreeg0@protonmail.com",
