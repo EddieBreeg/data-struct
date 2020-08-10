@@ -31,7 +31,8 @@ Now let's look at some code shall we? The following code can be found in the exa
 # This code aims to illustrate how we can use structLib
 from structLib import Struct
 
-# You will notice I only import the Struct class, the reason in because it's the only thing actually useful for us
+# You will notice I only import the Struct class, the reason in because it's the only thing actually useful for
+# us
 
 with open("actors.json") as f_in:
     data = Struct.load(f_in)  # First we load the data into a Struct object.
@@ -73,8 +74,8 @@ for a in data.getAll("age"):
 
 # Now let's sort them by age
 data['Actors'] = Struct(data['Actors']).sorted(path="age").data
-# Here I have to do this complicated mess because the list isn't at the top level of the structure but rather under
-# the "Actors" key
+# Here I have to do this complicated mess because the list isn't at the top level of the structure but rather 
+# under the "Actors" key
 print(data)
 
 # Finally let's write that back into the file
@@ -154,7 +155,7 @@ def test4():
 ````
 ## Requirements
 
-None! That's also what is cool about it! 🙂
+None! That's also what is cool about it! 
 
 ## Authors
 
