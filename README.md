@@ -1,4 +1,4 @@
-# structLib
+# data-struct
 
 structLib is essentially a module which contains the _Struct_ class. This class is specifically
 aimed at making your life easier when working with JSON-like objects (meaning nested
@@ -8,11 +8,11 @@ _dict_ / _list_ objects)
 
 To install structLib on your python setup, run the following:
 ```bash
-pip install structLib
+pip install data-struct
 ```
 On linux or mac you will probably need to run this command instead:
 ```bash
-python3 -m pip install structLib
+python3 -m pip install data-struct
 ```
 Please note that version 3.8 (or higher) of python is required to run this library!
 
