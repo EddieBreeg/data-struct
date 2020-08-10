@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="structLib-EddieBreeg",
-    version="0.1.0",
+    version="0.2.0",
     author="Eddie Breeg",
     author_email="eddiebreeg0@protonmail.com",
     description="A class to help you handling complex JSON-like objects",
@@ -15,7 +15,9 @@ setuptools.setup(
     py_modules=['structLib'],
     package_dir={'': "src"},
     classifiers=[
+        "Development Status :: 4 - Beta",
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
     ],
@@ -24,6 +26,6 @@ setuptools.setup(
         # eg: "aspectlib==1.1.1", "six>=1.7",
     ],
     extras_require={
-        # 'dev': ["pytest"],
+        'dev': ["pytest>=6.0.1"],
     },
 )
