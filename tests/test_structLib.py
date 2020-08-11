@@ -92,7 +92,7 @@ def test_sort2():
     assert [x['id'] for x in data2.sorted('id', int)] == ['0', 1, 2]
 
 
-def test_sort3():
+def test_serialization2():
     assert Struct(datetime.today())['year'] == 2020
 
 
