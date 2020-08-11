@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="data-struct",
-    version="1.0.0",
+    version="1.1.0",
     author="Eddie Breeg",
     license="GPLv3",
     author_email="eddiebreeg0@protonmail.com",
@@ -16,15 +16,15 @@ setuptools.setup(
     py_modules=['structLib'],
     package_dir={'': "src"},
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
     ],
+    # complete classifier list: https://pypi.org/classifiers/
     python_requires='>=3.8',
     install_requires=[
-        # eg: "aspectlib==1.1.1", "six>=1.7",
     ],
     extras_require={
         'dev': ["pytest>=6.0.1"],

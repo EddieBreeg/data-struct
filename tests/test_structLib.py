@@ -1,4 +1,17 @@
 from structLib import Struct
+from datetime import datetime
+
+
+def today():
+    d = datetime.now()
+    return datetime(year=d.year, month=d.month, day=d.day)
+
+
+class A:
+    def __init__(self, id=0, date=today()):
+        self.id = id
+        self.date = date
+
 
 data = Struct(
     {
@@ -16,6 +29,13 @@ data = Struct(
         }
     }
 )
+
+
+def test_serialization():
+    obj = A()
+    s = Struct(obj)
+    assert s['date'] == str(today())
+    assert s['id'] == 0
 
 
 def test_get_item():
@@ -50,8 +70,6 @@ def test_replace2():
     assert data.replace('blabla', 'blabla2')["2", "key"] == "blabla2"
 
 
-
-
 def test_len():
     assert len(data) == 3
 
@@ -74,8 +92,8 @@ def test_sort2():
     assert [x['id'] for x in data2.sorted('id', int)] == ['0', 1, 2]
 
 
-def test_sort3():
-    data.sort(function=int)
-    assert [x[0] for x in data] == ["1", '2', '3']
+def test_serialization2():
+    assert Struct(datetime.today())['year'] == 2020
 
 
+print(Struct(datetime.today()))
