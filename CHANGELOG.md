@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.1.0
+
+The _Struct_ constructor now accepts any type of object! If the given object is not a list nor a dict, it will be deserialized.\
+See the README for more details.
+
 #### 1.0.1
 
 Changed a bug such that when a list in the Struct object became empty, it was not deleted as it should

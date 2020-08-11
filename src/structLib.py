@@ -1,17 +1,16 @@
 import copy
 import json
+import builtins
 
 """Struct class to handle complex JSON-style data structures"""
 
 
 class Struct:
-    def __init__(self, data: "JSON style object"):
-        """
-
-        :param data: dict or list object
-        """
-        if type(data) != dict and type(data) != list:
-            raise TypeError("Argument should be a dict or a list, not a {0}".format(str(type(data))))
+    def __init__(self, data=None):
+        if data is None:
+            self.data = {}
+        elif type(data) != dict and type(data) != list:
+            self.data = deserialize(data)
         else:
             self.data = data
 
@@ -132,6 +131,38 @@ def getItem(data: 'JSON style object', path):
     if not path:
         return data
     return getItem(data[path[0]], path[1:])
+
+
+def deserialize(obj):
+    data = {}
+    defaultTypes = [
+        int,
+        str,
+        float,
+        bool,
+        list,
+        dict,
+        complex,
+        tuple
+    ]
+    excludedTypes = [
+        "function",
+        "builtins.staticmethod",
+        "classmethod",
+        "builtin_function_or_method",
+        "method-wrapper",
+        "NoneType"
+    ]
+    attrs = dir(obj)
+    attrs.remove('__class__')
+    attrs.remove('__doc__')
+    for attr in attrs:
+        v = obj.__getattribute__(attr)
+        if type(v) in defaultTypes:
+            data[attr] = v
+        elif type(v).__name__ not in excludedTypes:
+            data[attr] = str(v)
+    return data
 
 
 def modifyStruct(data: 'JSON style object', path):

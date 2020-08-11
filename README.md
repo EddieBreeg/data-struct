@@ -82,6 +82,17 @@ print(data)
 with open("sorted_actors.json", 'w') as f_out:
     data.dump(f_out, indent=4)
 ```
+### The constructor
+Creating a _Struct_ instance couldn't be easier: 
+```python
+from structLib import Struct
+
+s = Struct(data)
+``` 
+In most cases, `data` would be a list or a dictionary. But even if it's not the case, the object will automatically be deserialized
+by putting all its attributes into a dict object. That being said, keep in mind that any non-builtin type will be converted to a string so
+make sure that all the data contained in your object is indeed convertible into a string, otherwise some information will be lost.
+
 ### Iterating through a Struct
 
 The `for` syntax works perfectly with _Struct_ objects but the behavior depends on what type of data we have. If `self.data` is a list,
