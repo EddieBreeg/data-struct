@@ -1,7 +1,7 @@
 # data-struct
 
-structLib is essentially a module which contains the _Struct_ class. This class is specifically
-aimed at making your life easier when working with JSON-like objects (meaning nested
+structLib is essentially a module which contains the _Struct_ class. This class specifically
+aims at making your life easier when working with JSON-like objects (meaning nested
 _dict_ / _list_ objects)
 
 ## Installation
