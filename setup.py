@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="data-struct",
-    version="1.1.0",
+    version="1.2.0",
     author="Eddie Breeg",
     license="GPLv3",
     author_email="eddiebreeg0@protonmail.com",
