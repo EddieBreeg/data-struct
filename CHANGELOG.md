@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.2.0
+
+None (or empty) objects are no longer deleted automatically when you modify a Struct object.
+
 ### 1.1.0
 
 The _Struct_ constructor now accepts any type of object! If the given object is not a list nor a dict, it will be deserialized.\
