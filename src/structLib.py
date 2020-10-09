@@ -38,12 +38,18 @@ class Struct:
 
     def __setitem__(self, path, value):
         """self.__setitem__((path, to, value), value) --> self[path, to, value]=value"""
-        if type(path) == str:
+        if type(path) == tuple:
+            path = list(path)
+        elif type(path) != list:
             path = [path]
         modifyStruct(self.data, list(path) + [value])
 
     def __delitem__(self, path):
-        self[path] = None
+        if type(path) == tuple:
+            path = list(path)
+        elif type(path) != list:
+            path = [path]
+        delItem(self.data, path)
 
     def __contains__(self, key):
         """Returns (key in self)"""
@@ -51,7 +57,9 @@ class Struct:
 
     def __getitem__(self, path):
         """self.__getitem__(path) --> self[path]"""
-        if type(path) == str:
+        if type(path) == tuple:
+            path = list(path)
+        elif type(path) != list:
             path = [path]
         return getItem(self.data, list(path))
 
@@ -132,6 +140,14 @@ def getItem(data: 'JSON style object', path):
         return data
     return getItem(data[path[0]], path[1:])
 
+def delItem(data: "JSON style object", path):
+    # print(len(path)
+    if not path:
+        raise KeyError("Invalid path")
+    elif len(path) == 1:
+        del data[path[0]]
+    else:
+        delItem(data[path[0]], path[1:])
 
 def deserialize(obj):
     data = {}
@@ -168,14 +184,10 @@ def deserialize(obj):
 def modifyStruct(data: 'JSON style object', path):
     if len(path) == 2:
         data[path[0]] = path[1]
-        if path[1] is None:
-            del data[path[0]]
         return data
     if type(data) == dict:
         data.setdefault(path[0], {})
     data[path[0]] = modifyStruct(data[path[0]], path[1:])
-    if not data[path[0]]:
-        del data[path[0]]
     return data
 
 

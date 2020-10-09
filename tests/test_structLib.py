@@ -49,7 +49,7 @@ def test_set_item():
 
 def test_del_item():
     del data['bruh']
-    assert ('bruh' not in data)
+    assert 'bruh' not in data
 
 
 def test_getAll():
